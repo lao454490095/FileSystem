@@ -16,7 +16,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
@@ -25,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.jar.Attributes.Name;
 
@@ -97,18 +103,40 @@ public class AdminFrame extends JFrame {
 			}
 		});
 		// TODO Auto-generated constructor stub
+//		try {
+//			System.out.println("i am in!11111");
+//			MyIO.inputHalls(halls);
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			System.out.println("i am in!22222");
+//			MyIO.inputMovies(movies);
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		ObjectInputStream in = null;
 		try {
-			MyIO.inputHalls(halls);
-		} catch (ClassNotFoundException e) {
+			in = new ObjectInputStream( new FileInputStream("halls.dat"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			MyIO.inputMovies(movies);
+			halls= (List<Hall>)in.readObject();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		System.out.print(halls.size()+"sdfffff");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSessionPage();
 		setFilmPage();
@@ -125,7 +153,6 @@ public class AdminFrame extends JFrame {
 		for (int i = 0; i < movies.size(); i++) {
 			filmModel.addElement(movies.get(i).name);
 		}
-
 		JScrollPane filmScrollPane = new JScrollPane(filmJList);
 		filmScrollPane.setBounds(50, 20, 150, 200);
 		filmScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -196,6 +223,7 @@ public class AdminFrame extends JFrame {
 		filmTable.setDefaultRenderer(Object.class, new TableCellRenderer() {
 			
 			@Override
+			
 			public Component getTableCellRendererComponent(JTable table, Object value,
 					boolean isSelected, boolean hasFocus, int row, int column) {
 				// TODO Auto-generated method stub
@@ -229,7 +257,7 @@ public class AdminFrame extends JFrame {
 				return text;
 			}
 		});
-		
+
 		JScrollPane filmScrollPane = new JScrollPane(filmTable);
 		filmTable.setPreferredScrollableViewportSize(new Dimension(500,200));
 		

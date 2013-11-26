@@ -54,9 +54,9 @@ public class FilmTableModel implements TableModel {
 		}else if (columnIndex == 3) {
 			return "开始时间";
 		}else if (columnIndex == 4) {
-			return "时长";
-		}else if (columnIndex == 5) {
 			return "价格";
+		}else if (columnIndex == 5) {
+			return "时长";
 		}else if (columnIndex == 6) {
 			return "余票量";
 		}

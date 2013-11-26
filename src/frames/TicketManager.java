@@ -125,6 +125,7 @@ class MyIO {
 		}
 		return list.size();
 	}
+
 	public static void outputMoviesAsArray(List<Movie> l) throws IOException {
 		ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("movies.dat"));
 		output.writeObject(l);
@@ -378,7 +379,30 @@ class Operation {
 
 public class TicketManager {
 	public static void main(String args[]) {
-		Movie m = new Movie("sb",10,200,"ะüาษ");
+/*		Movie m = new Movie("sb",10,200,"ะüาษ");
+		List<Hall> hl = new LinkedList<Hall>();
+		for(int i = 0; i < 20 ;i++) {
+			Hall h = new Hall();
+			h.addNewPlay(new Play(m,new GregorianCalendar(),i));
+			hl.add(h);
+		}
+		ObjectOutputStream out = null;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream("halls.dat"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			out.writeObject(hl);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackT(race();
+		}*/
+		Movie m = new Movie("sb",10,100,"ะüาษ");
 		List<Hall> hl = new LinkedList<Hall>();
 		for(int i = 0; i < 20 ;i++) {
 			Hall h = new Hall();
@@ -401,6 +425,31 @@ public class TicketManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		List<Hall> hl2 = null;
+		ObjectInputStream in = null;
+		try {
+			in = new ObjectInputStream( new FileInputStream("halls.dat"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			hl2= (List<Hall>)in.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(hl2.get(0).playList.get(0).movie.name);
+		System.out.println(hl2.size());
+		
+		
 	}
 
 }

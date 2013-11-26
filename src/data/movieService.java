@@ -9,6 +9,7 @@ import movie.Hall;
 public interface movieService extends Remote{
 	public List<Movie> getMovie() throws RemoteException;
 	public List<Hall> getHall() throws RemoteException;
+	public void writeBack() throws RemoteException;
 }
 
 
