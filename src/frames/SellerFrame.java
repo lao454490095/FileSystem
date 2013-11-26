@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,18 +40,35 @@ public class SellerFrame extends JFrame {
 	private List<Hall> halls = new LinkedList<Hall>();
 	private List<Movie> movies = new LinkedList<Movie>();
 	private List<Play> plays = new LinkedList<Play>();
+	private movieService movieservice;
 	public SellerFrame() 
 	{
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				try
+				{
+					movieservice.getHall(halls);
+					movieservice.getMvoie(movies);
+					movieservice.writeBack();
+				}
+				catch (Exception e1)
+				{
+					// TODO Auto-generated catch block
+					System.out.println("error on closing window->sellerFrame");
+				}
+				
+			}
+		});
+		
+		//÷ÿµ„
 		try
 		{
-			movieService movieservice=(movieService)Naming.lookup("rmi://110.64.86.190:8000/TicketManager");
-			List<Movie> temp=movieservice.getMovie();
+			movieservice=(movieService)Naming.lookup("rmi://110.64.86.190:8000/TicketManager");
+			List<Movie> temp=movieservice.distributeMovie();
 			//System.out.println(temp);
-			List<Hall> temp2=movieservice.getHall();
-			//System.out.println(temp2);
-			//System.out.println(movieservice.getMovie());
-			//List<Movie> personList=movieservice.getMovie(); 
-			//System.out.println(movieservice);
+			List<Hall> temp2=movieservice.distributeHall();
+
 			movies=temp;
 			halls=temp2;
 		}

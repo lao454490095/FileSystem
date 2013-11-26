@@ -98,14 +98,23 @@ public class movieServiceImpl extends UnicastRemoteObject implements movieServic
 			e.printStackTrace();
 		}
 	}*/
-	public List<Movie> getMovie() throws RemoteException
+	public List<Movie> distributeMovie() throws RemoteException
 	{	
 		return l;
 	}
-	public List<Hall> getHall() throws RemoteException
+	public List<Hall> distributeHall() throws RemoteException
 	{	
 		return l2;
 	}
+	public void getMvoie(List<Movie> list) throws RemoteException
+	{
+		l=list;
+	}
+	public void getHall(List<Hall> list) throws RemoteException
+	{
+		l2=list;
+	}
+	
 	public void writeBack() throws RemoteException
 	{
 		try
